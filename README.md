@@ -1,12 +1,37 @@
-## Micronaut 3.3.0 Documentation
+# micronaut-parallel-bug-mn330
 
-- [User Guide](https://docs.micronaut.io/3.3.0/guide/index.html)
-- [API Reference](https://docs.micronaut.io/3.3.0/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/3.3.0/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+### Task List
 
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)## Feature http-client documentation
+- [x] Steps to reproduce provided
+- [ ] Stacktrace (if present) provided
+- [x] Example that reproduces the problem uploaded to Github
+- [x] Full description of the issue provided (see below)
 
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
+### Steps to Reproduce
 
+1. Checkout https://github.com/tobiasschaefer/micronaut-parallel-bug-mn330
+2. Start the application
+3. Look at startup time shown in console, e.g. "Startup completed in 10999ms"
+
+### Expected Behaviour
+
+There are two beans annotated with `@Parallel` which both sleep(5000) during initialization.
+
+I expect a startup time of a bit more that 5 seconds because both should be executed in parallel.
+
+### Actual Behaviour
+
+I see a startup time of a bit more than 10 seconds.
+
+@jameskleeh said "Yeah it looks like there is a synchronization block where there shouldn’t be
+Can you file an issue?"
+
+### Environment Information
+
+- **Operating System**: Linux
+- **Micronaut Version:** 3.3.0 (current)
+- **JDK Version:** 11.0.2
+
+### Example Application
+
+https://github.com/tobiasschaefer/micronaut-parallel-bug-mn330
